@@ -1,4 +1,4 @@
-![MixerFox logo](https://drive.google.com/open?id=0B1JQchHgy4BbSzZEX1ZJUGs3d3M "MixerFox")
+![MixerFox logo](./static/images/mixerfox_logo.png "MixerFox")
 
 
 # MixerFox
