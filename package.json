@@ -1,0 +1,10 @@
+{
+	"name": "mixerfox",
+	"version": "0.0.1",
+	"description": "Music streaming, uploading and sharing service.",
+	"dependencies": {
+		"socket.io": "~0.9.6",
+		"mime": "~1.2.7",
+		"express": "4.2.x"
+	}
+}
