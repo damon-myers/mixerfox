@@ -1,0 +1,14 @@
+.navbar-default {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	vertical-align: middle;
+}
+
+.navbar-brand {
+	font: 20pt "Helvetica Neue", sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.navbar-brand span {
+	color: #dc4b1e;
+}
