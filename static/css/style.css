@@ -1,6 +1,14 @@
+body, html {
+	height: 100%;
+	width: 100%;
+	font: "Helvetica Neue", "Open Sans", sans-serif;
+}
+
 .navbar-default {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	vertical-align: middle;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar-brand {
@@ -11,4 +19,35 @@
 
 .navbar-brand span {
 	color: #dc4b1e;
+}
+
+header {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	min-height: auto;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+	background-position: center;
+	background-image: url("../images/mixtape.jpg");
+	background-color: #DFDFDF;
+	text-align: center;
+	color: white;
+}
+
+.header-content {
+	position: relative;
+	text-align: center;
+	padding: 100px 15px 100px;
+	width: 100%;
+}
+
+.header-content span {
+	color: #dc4b1e;
+}
+
+img {
+	margin: auto;
 }
