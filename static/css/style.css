@@ -34,7 +34,9 @@ header {
 	background-image: url("../images/mixtape.jpg");
 	background-color: #DFDFDF;
 	text-align: center;
+	vertical-align: middle;
 	color: white;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .header-content {
@@ -48,6 +50,12 @@ header {
 	color: #dc4b1e;
 }
 
-img {
+.mixerfox-logo {
 	margin: auto;
+	margin-top: 150px;
+}
+
+.main-content {
+	height: 1000px;
+	background-color: #aaa;
 }
