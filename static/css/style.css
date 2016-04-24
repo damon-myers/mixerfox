@@ -23,6 +23,7 @@ body, html {
 
 .nav-item {
 	background: none;
+	vertical-align: middle;
 }
 
 header {
