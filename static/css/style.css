@@ -21,6 +21,10 @@ body, html {
 	color: #dc4b1e;
 }
 
+.nav-item {
+	background: none;
+}
+
 header {
 	position: relative;
 	height: 100%;
