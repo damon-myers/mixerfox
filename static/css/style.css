@@ -20,7 +20,6 @@ body, html {
 
 header {
 	position: relative;
-	height: 100%;
 	width: 100%;
 	min-height: auto;
 	-webkit-background-size: cover;
@@ -30,10 +29,7 @@ header {
 	background-position: center;
 	background-image: url("../images/mixtape.jpg");
 	background-color: #DFDFDF;
-	text-align: center;
-	vertical-align: middle;
 	color: white;
-	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .header-content {
@@ -41,6 +37,7 @@ header {
 	text-align: center;
 	padding: 100px 15px 100px;
 	width: 100%;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .header-content span {
@@ -55,4 +52,12 @@ header {
 .main-content {
 	height: 1000px;
 	background-color: #aaa;
+}
+
+@media (min-width: 768px) {
+
+	header {
+		min-height: 100%;
+	}
+
 }
