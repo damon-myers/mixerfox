@@ -7,7 +7,7 @@
 		"socket.io": "~0.9.6",
 		"mime": "~1.2.7",
 		"express": "4.2.x",
-		"pug": "2.0.0",
+		"pug": "latest",
 		"mongoose" : "~3.8.1",          
 	    "passport" : "~0.1.17",         
 	    "passport-local" : "~0.1.6",    
