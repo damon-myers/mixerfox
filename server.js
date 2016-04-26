@@ -1,3 +1,6 @@
+// This file should bootstrap the app and nothing more
+// Business logic should be handled elsewhere
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
