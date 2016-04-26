@@ -5,6 +5,7 @@
 	"dependencies": {
 		"socket.io": "~0.9.6",
 		"mime": "~1.2.7",
-		"express": "4.2.x"
+		"express": "4.2.x",
+		"serve-favicon": "*"
 	}
 }
