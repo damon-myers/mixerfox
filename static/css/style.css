@@ -1,6 +1,7 @@
 body, html {
 	height: 100%;
 	width: 100%;
+	text-align: center;
 	font: "Helvetica Neue", "Open Sans", sans-serif;
 }
 
@@ -53,11 +54,6 @@ header {
 	margin-top: 150px;
 }
 
-.main-content {
-	height: 1000px;
-	background-color: #aaa;
-}
-
 .main-searchbar {
 	width: 50%;
 	height: 32px;
@@ -72,6 +68,16 @@ header {
 
 .main-searchbar:focus {
 	outline: none;
+}
+
+.bg-primary {
+	min-height: 450px;
+	background-color: #dc4b1e;
+	color: white;
+}
+
+.upload-info-content {
+	margin-top: 150px;
 }
 
 @media (min-width: 768px) {
