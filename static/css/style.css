@@ -35,13 +35,17 @@ header {
 .header-content {
 	position: relative;
 	text-align: center;
-	padding: 100px 15px 100px;
+	padding: 150px 15px 100px;
 	width: 100%;
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .header-content span {
 	color: #dc4b1e;
+}
+
+.header-content h1 {
+	margin-top: 50px;
 }
 
 .mixerfox-logo {
@@ -52,6 +56,22 @@ header {
 .main-content {
 	height: 1000px;
 	background-color: #aaa;
+}
+
+.main-searchbar {
+	width: 50%;
+	height: 32px;
+	margin: auto;
+	margin-top: 50px;
+	border: none;
+	border-radius: 50px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+	text-align: center;
+	color: black;
+}
+
+.main-searchbar:focus {
+	outline: none;
 }
 
 @media (min-width: 768px) {
