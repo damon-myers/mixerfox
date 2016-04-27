@@ -1,1 +1,24 @@
 // home page template
+extends ./layout.pug
+
+block title
+	title Home - MixerFox
+
+block content
+	header
+		.header-content
+			.header-content-inner
+				img.mixerfox-logo.img-responsive(width='250', src='../static/images/mixerfox_logo.png')
+				h1
+					Mixer
+					span
+						Fox
+					has the music you need.
+				form
+					input.main-searchbar(type='text', placeholder='Search by artist, playlist, or song name')
+
+	.bg-primary
+		.container
+			.upload-info-content
+				h1
+					And if you don't, you can upload it yourself.
