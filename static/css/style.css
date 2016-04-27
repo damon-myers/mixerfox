@@ -15,7 +15,8 @@ body, html {
 	text-transform: uppercase;
 }
 
-.navbar-brand span {
+.highlight-text {
+	display: inline;
 	color: #dc4b1e;
 }
 
@@ -39,10 +40,6 @@ header {
 	padding: 150px 15px 100px;
 	width: 100%;
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-}
-
-.header-content span {
-	color: #dc4b1e;
 }
 
 .header-content h1 {
