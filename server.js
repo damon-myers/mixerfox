@@ -7,11 +7,14 @@ var favicon = require('serve-favicon');
 
 var app = express();
 
+// configure the express app
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static', 'images', 'favicon.ico')));
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 app.get('/', function(req, res) {
-	res.render('index.html');
+	res.render('index');
 });
 
 app.listen(3000, function() {
