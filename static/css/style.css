@@ -77,6 +77,29 @@ header {
 	margin-top: 150px;
 }
 
+.login-content {
+	position: relative;
+	text-align: center;
+	padding: 150px 15px 100px;
+	margin: auto;
+}
+
+.login-box {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.login-form {
+	margin-bottom: 30px;
+}
+
+.btn-primary {
+	background-color: #dc4b1e;
+}
+
+.btn-primary:hover {
+	background-color: #ec5b2e;
+}
+
 @media (min-width: 768px) {
 
 	header {
