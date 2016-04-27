@@ -1,6 +1,7 @@
 body, html {
 	height: 100%;
 	width: 100%;
+	text-align: center;
 	font: "Helvetica Neue", "Open Sans", sans-serif;
 }
 
@@ -14,7 +15,8 @@ body, html {
 	text-transform: uppercase;
 }
 
-.navbar-brand span {
+.highlight-text {
+	display: inline;
 	color: #dc4b1e;
 }
 
@@ -40,10 +42,6 @@ header {
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
-.header-content span {
-	color: #dc4b1e;
-}
-
 .header-content h1 {
 	margin-top: 50px;
 }
@@ -51,11 +49,6 @@ header {
 .mixerfox-logo {
 	margin: auto;
 	margin-top: 150px;
-}
-
-.main-content {
-	height: 1000px;
-	background-color: #aaa;
 }
 
 .main-searchbar {
@@ -72,6 +65,16 @@ header {
 
 .main-searchbar:focus {
 	outline: none;
+}
+
+.bg-primary {
+	min-height: 450px;
+	background-color: #dc4b1e;
+	color: white;
+}
+
+.upload-info-content {
+	margin-top: 150px;
 }
 
 @media (min-width: 768px) {

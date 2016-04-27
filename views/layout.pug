@@ -1,0 +1,27 @@
+// layout template for consistent page features
+doctype html
+html(lang="en")
+	head
+		block title
+			title MixerFox
+		script(src='./js/jquery-2.2.3.min.js')
+		script(src='./js/bootstrap.min.js')
+		link(rel='stylesheet', href='css/bootstrap.min.css')
+		link(rel='stylesheet', href='css/style.css')
+	body
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container-fluid
+				.navbar-header
+					a.navbar-brand(href='/') Mixer#[.highlight-text Fox]
+				ul.nav.navbar-nav.navbar-right
+					li.nav-item.active
+						a.nav-link(href='/') Home
+					li.nav-item
+						a.nav-link(href='/') Top Songs
+					li.nav-item
+						a.nav-link(href='/') Login / Sign Up
+					li.nav-item
+						form.navbar-form
+							input.form-control(type='text', placeholder='Search for songs')
+
+		block content
