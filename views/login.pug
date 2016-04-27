@@ -6,19 +6,21 @@ block title
 block content
 	.container.login-content
 		.row
-			.login-box.col-md-4
+			.login-box.col-md-6
 				h2.
 					Log In
 				form.login-form
-					input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
-					input.form-control(type='password', name='password', placeholder='Password', required='')
+					.form-group
+						input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
+						input.form-control(type='password', name='password', placeholder='Password', required='')
 					button.btn.btn-lg.btn-primary.btn-block(type='submit').
 						Login
-			.login-box.col-md-8
+			.login-box.col-md-6
 				h2. 
 					Register
 				form.login-form
-					input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
-					input.form-control(type='password', name='password', placeholder='Password', required='')
+					.form-group
+						input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
+						input.form-control(type='password', name='password', placeholder='Password', required='')
 					button.btn.btn-lg.btn-primary.btn-block(type='submit').
 						Register
