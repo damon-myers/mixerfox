@@ -17,6 +17,22 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+app.get('/login', function(req, res) {
+	res.render('login');
+});
+
+app.get('/create', function(req, res) {
+	res.render('create');
+});
+
+app.get('/upload', function(req, res) {
+	res.render('upload');
+});
+
+app.get('/play', function(req, res) {
+	res.render('player');
+});
+
 app.listen(3000, function() {
 	console.log('Server now listening on port 3000.');
 });
