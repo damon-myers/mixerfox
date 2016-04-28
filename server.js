@@ -1,38 +1,45 @@
 // This file should bootstrap the app and nothing more
 // Business logic should be handled elsewhere
 
+
+// Require all of our packages to pass around
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var mysql = require('mysql');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
 var app = express();
+var port = process.env.PORT || 3000;
+
+/* configure and connect to our database
+var configDB = require('./config/database.js');
+var connection = mysql.createConnection(configDB.mysqlparams);
+connection.connect();
+*/
+
+// pass passport for configuration
+// require('./config/passport')(passport);
 
 // configure the express app
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static', 'images', 'favicon.ico')));
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser());
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.get('/', function(req, res) {
-	res.render('index');
-});
 
-app.get('/login', function(req, res) {
-	res.render('login');
-});
+// routing handled in routes.js
+// pass the app and passport object for auth
+require('./app/routes.js')(app, passport);
 
-app.get('/create', function(req, res) {
-	res.render('create');
-});
-
-app.get('/upload', function(req, res) {
-	res.render('upload');
-});
-
-app.get('/play', function(req, res) {
-	res.render('player');
-});
-
-app.listen(3000, function() {
-	console.log('Server now listening on port 3000.');
+app.listen(port, function() {
+	console.log('Server now listening on port ' + port);
 });
