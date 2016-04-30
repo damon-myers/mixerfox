@@ -6,14 +6,14 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/login', function(req, res) {
-		res.render('login', {'page':'Login'});
+		res.render('login', {'page':'Login', 'message': req.flash('loginMessage') });
 	});
 
-	app.get('/create', function(req, res) {
+	app.get('/create', isLoggedIn, function(req, res) {
 		res.render('create', {'page':'Create'});
 	});
 
-	app.get('/upload', function(req, res) {
+	app.get('/upload', isLoggedIn, function(req, res) {
 		res.render('upload', {'page':'Upload'});
 	});
 

@@ -19,7 +19,7 @@ var port = process.env.PORT || 3000;
 
 // configure and connect to our database
 var configDB = require('./config/database.js');
-var connectionDB = mysql.createConnection(configDB);
+var connectionDB = mysql.createConnection(configDB.connection);
 connectionDB.connect();
 
 // pass passport object for configuration
