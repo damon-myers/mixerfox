@@ -17,13 +17,12 @@ var bodyParser = require('body-parser');
 var app = express();
 var port = process.env.PORT || 3000;
 
-/* configure and connect to our database
+// configure and connect to our database
 var configDB = require('./config/database.js');
-var connection = mysql.createConnection(configDB.mysqlparams);
-connection.connect();
-*/
+var connectionDB = mysql.createConnection(configDB);
+connectionDB.connect();
 
-// pass passport for configuration
+// pass passport object for configuration
 // require('./config/passport')(passport);
 
 // configure the express app
@@ -40,6 +39,17 @@ app.set('view engine', 'pug');
 // pass the app and passport object for auth
 require('./app/routes.js')(app, passport);
 
-app.listen(port, function() {
+var server = app.listen(port, function() {
 	console.log('Server now listening on port ' + port);
+});
+
+// close the server properly on Ctrl+C
+process.on('SIGINT', function() {
+	console.log();
+	connectionDB.end();
+	console.log("DB connection terminated, closing server...");
+	server.close(function() {
+		console.log("Server closed, exiting.");
+		process.exit();
+	});
 });
