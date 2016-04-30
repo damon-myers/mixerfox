@@ -13,6 +13,7 @@ var session = require('express-session');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passportSecret = require('./config/secret.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -20,10 +21,9 @@ var port = process.env.PORT || 3000;
 // configure and connect to our database
 var configDB = require('./config/database.js');
 var connectionDB = mysql.createConnection(configDB.connection);
-connectionDB.connect();
 
 // pass passport object for configuration
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 // configure the express app
 app.use(express.static(path.join(__dirname, 'static')));
@@ -34,6 +34,15 @@ app.use(bodyParser());
 app.set('views', './views');
 app.set('view engine', 'pug');
 
+// passport + express config
+app.use(session ({
+	secret: passportSecret.secret,
+	resave: true,
+	saveUninitialized: true
+} ));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // routing handled in routes.js
 // pass the app and passport object for auth
@@ -46,8 +55,6 @@ var server = app.listen(port, function() {
 // close the server properly on Ctrl+C
 process.on('SIGINT', function() {
 	console.log();
-	connectionDB.end();
-	console.log("DB connection terminated, closing server...");
 	server.close(function() {
 		console.log("Server closed, exiting.");
 		process.exit();

@@ -34,3 +34,6 @@ node_modules
 
 # Database config file which includes user/pass
 config/database.js
+
+# Secret config file that contains the session secret for passport
+config/secret.js

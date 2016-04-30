@@ -5,29 +5,38 @@ block title
 
 block content
 	.container.main-content
+		if loginMessage
+			.alert.alert-danger
+				loginMessage
+		if signupMessage
+			.alert.alert-danger
+				signupMessage
 		.row
 			.main-content-box.col-sm-6
 				h2.
 					Existing Users
 				hr
-				form.login-form
+				form.login-form(action='/login', method='post')
 					.form-group
-						input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
+						input.form-control(type='text', name='username', placeholder='Username', required='', autofocus='')
 					.form-group
 						input.form-control(type='password', name='password', placeholder='Password', required='')
+					.form-group
+						label Remember Me:
+						input(type='checkbox', name='remember', value='yes', style='display: block;')
 					button.btn.btn-lg.btn-primary.btn-block(type='submit').
 						Login
 			.main-content-box.col-sm-6
 				h2. 
 					New Users
 				hr
-				form.login-form
+				form.login-form(action='/signup', method='post')
 					.form-group
-						input.form-control(type='text', name='firstname', placeholder='First Name', required='')
+						input.form-control(type='text', name='username', placeholder='Username', required='')
 					.form-group
-						input.form-control(type='text', name='lastname', placeholder='Last Name', required='')
+						input.form-control(type='text', name='firstName', placeholder='First Name', required='')
 					.form-group
-						input.form-control(type='text', name='username', placeholder='Email', required='')
+						input.form-control(type='text', name='lastName', placeholder='Last Name', required='')
 					.form-group
 						input.form-control(type='password', name='password', placeholder='Password', required='')
 					button.btn.btn-lg.btn-primary.btn-block(type='submit').

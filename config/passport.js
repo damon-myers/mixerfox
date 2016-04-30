@@ -13,12 +13,12 @@ module.exports = function(passport) {
 	// needs ability to serialize and deserialize users to manage sessions
 
 	passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		done(null, user.username);
 	});
 
-	passport.deserializeUser(function(userid, done) {
-		connection.query("SELECT * FROM user WHERE id = ? ", [userid], function (err, results) {
-			done(err, rows[0]);
+	passport.deserializeUser(function(username, done) {
+		connection.query("SELECT * FROM user WHERE username = ? ", [username], function (err, results) {
+			done(err, results[0]);
 		});
 	});
 
@@ -30,34 +30,39 @@ module.exports = function(passport) {
 			passwordField: 'password',
 			passReqToCallback: true
 		},
-		function (req, username, password, firstName, lastName, done) {
-			// check for users whose email is the same as the email input on the form
+		function (req, username, password, done) {
+			// check for users whose username is the same as the username input on the form
 			connection.query("SELECT * FROM user WHERE username = ?", [username], 
 				function(err, results) {
 					if (err)
 						return done(err);
 					if (results.length) {
 						return done(null, false, req.flash('signupMessage', 
-							'That email is already in use.'));
+							'That username is already in use.'));
 					}
 					else {
-						// if there are no users with that email, create the new user
+						// if there are no users with that username, create the new user
 						var newUserMySql = {
 							username: username,
-							firstName: firstName,
-							lastName: lastName,
+							// firstName: firstName,
+							// lastName: lastName,
 							password: bcrypt.hashSync(password, null, null)
 						};
 
-						var insertQuery = "INSERT INTO users " +
-							"( username, firstName, lastName, password) values (?, ?, ?, ?)";
+						var insertQuery = "INSERT INTO user (username, password) values (?, ?)";
 
 						connection.query(insertQuery, 
-							[newUserMySql.username, newUserMySql.firstName, newUserMySql.lastName, newUserMySql.password], 
+							[newUserMySql.username, newUserMySql.password], 
 							function (err, results) {
+								if(err) {
+									console.log("MySQL Error when inserting new user.");
+									console.log(err);
+									return done(null, false, req.flash('signupMessage', 'DB Error.'));
+								}
+
 								newUserMySql.id = results.insertId;
 
-								return done(null, newUserMySql)
+								return done(null, newUserMySql);
 							}
 						);
 					}
@@ -75,18 +80,19 @@ module.exports = function(passport) {
 			passwordField : 'password',
 			passReqToCallback: true
 		},
-		function(req, username, password, firstName, lastName, done) {
+		function(req, username, password, done) {
 			connection.query("SELECT * FROM user WHERE username = ?", [username], function(err, results) {
+
 				if (err)
 					return done(err);
 				if (!results.length)
-					return done(null, false, req.flash('loginMessage', 'No User found with that Email.'));
+					return done(null, false, req.flash('loginMessage', 'No User found with that Username.'));
 				if (!bcrypt.compareSync(password, results[0].password))
 					return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
 
 				// if nothing else, we successfully logged in, return the logged in user
 				return done(null, results[0]);
 			});
-		});
+		})
 	);
 };
