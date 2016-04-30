@@ -1,19 +1,20 @@
 module.exports = function(app, passport) {
+
 	// home page route
 	app.get('/', function(req, res) {
-		res.render('index');
+		res.render('index', {'page':'Home'});
 	});
 
 	app.get('/login', function(req, res) {
-		res.render('login');
+		res.render('login', {'page':'Login'});
 	});
 
 	app.get('/create', function(req, res) {
-		res.render('create');
+		res.render('create', {'page':'Create'});
 	});
 
 	app.get('/upload', function(req, res) {
-		res.render('upload');
+		res.render('upload', {'page':'Upload'});
 	});
 
 	app.get('/play', function(req, res) {

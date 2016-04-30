@@ -75,6 +75,7 @@ header {
 
 .upload-info-content {
 	margin-top: 150px;
+	text-align: center;
 }
 
 .main-content {
@@ -94,6 +95,8 @@ header {
 
 .btn-primary {
 	background-color: #dc4b1e;
+	border-radius: 5px;
+	border: none;
 }
 
 .btn-primary:focus {
@@ -102,6 +105,11 @@ header {
 
 .btn-primary:hover {
 	background-color: #ec5b2e;
+}
+
+.playlist-img {
+	margin: auto;
+	margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
