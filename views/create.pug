@@ -2,3 +2,23 @@ extends ./layout.pug
 
 block title
 	title Create Playlist - MixerFox
+
+block content
+	.container.main-content
+		.row
+			.col-sm-12.main-content-box
+				h2.
+					Create a Playlist
+				hr
+				form
+					.row
+						.form-group.col-sm-4
+							input.form-control(type='text', name='playlist-name', placeholder='Playlist Name', required='', autofocus='')
+						.form-group.col-sm-4
+							label. 
+								Playlist Art:
+							input(type='file', name='playlist-art')
+						.form-group.col-sm-4
+							img(src='', style='display:none;')
+				hr
+			

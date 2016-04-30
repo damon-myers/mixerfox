@@ -4,11 +4,12 @@ block title
 	title Login - MixerFox
 
 block content
-	.container.login-content
+	.container.main-content
 		.row
-			.login-box.col-sm-6
+			.main-content-box.col-sm-6
 				h2.
 					Existing Users
+				hr
 				form.login-form
 					.form-group
 						input.form-control(type='text', name='username', placeholder='Email', required='', autofocus='')
@@ -16,9 +17,10 @@ block content
 						input.form-control(type='password', name='password', placeholder='Password', required='')
 					button.btn.btn-lg.btn-primary.btn-block(type='submit').
 						Login
-			.login-box.col-sm-6
+			.main-content-box.col-sm-6
 				h2. 
 					New Users
+				hr
 				form.login-form
 					.form-group
 						input.form-control(type='text', name='firstname', placeholder='First Name', required='')

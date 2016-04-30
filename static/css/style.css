@@ -1,8 +1,7 @@
 body, html {
 	height: 100%;
 	width: 100%;
-	text-align: center;
-	font: "Helvetica Neue", "Open Sans", sans-serif;
+	font: "Open Sans", Arial, sans-serif;
 	background-color: #f8f8f8;
 }
 
@@ -11,7 +10,7 @@ body, html {
 }
 
 .navbar-brand {
-	font: 18pt "Helvetica Neue", sans-serif;
+	font: 18pt "Open Sans", sans-serif;
 	font-weight: 700;
 	text-transform: uppercase;
 }
@@ -78,14 +77,13 @@ header {
 	margin-top: 150px;
 }
 
-.login-content {
+.main-content {
 	position: relative;
-	text-align: center;
 	padding: 150px 15px 100px;
 	margin: auto;
 }
 
-.login-box {
+.main-content-box {
 	background-color: white;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
