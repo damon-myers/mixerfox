@@ -1,6 +1,7 @@
 // layout template for consistent page features
 
 input(id='page',type='hidden',name='page',value='#{page}')
+input(id='loggedIn',type='hidden',name='loggedIn',value='#{loggedIn}')
 input(id='loginMessage',type='hidden',name='loginMessage',value='#{loginMessage}')
 input(id='signupMessage',type='hidden',name='signupMessage',value='#{signupMessage}')
 
@@ -39,12 +40,16 @@ html(lang="en")
 					else
 						li.nav-item
 							a.nav-link(href='/create') Create Playlist
-					if page == 'Login'
-						li.nav-item.active
-							a.nav-link(href='/login') Login / Sign Up
-					else
+					if loggedIn
 						li.nav-item
-							a.nav-link(href='/login') Login / Sign Up
+							a.nav-link(href='/logout') Logout #{user}
+					else
+						if page == 'Login'
+							li.nav-item.active
+								a.nav-link(href='/login') Login / Sign Up
+						else
+							li.nav-item
+								a.nav-link(href='/login') Login / Sign Up
 					li.nav-item
 						form.navbar-form
 							input.form-control(type='text', placeholder='Search for songs')

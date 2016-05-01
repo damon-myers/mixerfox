@@ -6,21 +6,38 @@ module.exports = function(app, passport) {
 
 	// home page route
 	app.get('/', function(req, res) {
-		res.render('index', {'page':'Home'});
+		if(req.isAuthenticated())
+			res.render('index', {
+				'page':'Home',
+				'loggedIn': 'true'
+			});
+		else
+			res.render('index', {
+				'page': 'Home',
+				'loggedIn': false
+			});
 	});
 
 	app.get('/login', function(req, res) {
-		res.render('login', {'page':'Login', 
+		res.render('login', {
+			'page':'Login',
 			'login-message': req.flash('loginMessage'), 
-			'signup-message': req.flash('signupMessage') });
+			'signup-message': req.flash('signupMessage')
+		});
 	});
 
 	app.get('/create', isLoggedIn, function(req, res) {
-		res.render('create', {'page':'Create'});
+		res.render('create', {
+			'page':'Create',
+			'loggedIn': true
+		});
 	});
 
 	app.get('/upload', isLoggedIn, function(req, res) {
-		res.render('upload', {'page':'Upload'});
+		res.render('upload', {
+			'page':'Upload',
+			'loggedIn': true
+		});
 	});
 
 	app.get('/play', function(req, res) {
