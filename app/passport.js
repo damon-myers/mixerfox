@@ -7,6 +7,10 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var configDB = require('../config/database.js');
 var connection = mysql.createConnection(configDB.connection);
+connection.connect(function(err) {
+	if(!err)
+		console.log("Successfully connected to db");
+});
 
 module.exports = function(passport) {
 	// passport sessions setup
