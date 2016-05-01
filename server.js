@@ -23,7 +23,7 @@ var configDB = require('./config/database.js');
 var connectionDB = mysql.createConnection(configDB.connection);
 
 // pass passport object for configuration
-require('./config/passport')(passport);
+require('./app/passport.js')(passport);
 
 // configure the express app
 app.use(express.static(path.join(__dirname, 'static')));
