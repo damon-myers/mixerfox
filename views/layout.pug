@@ -1,0 +1,57 @@
+// layout template for consistent page features
+
+input(id='page',type='hidden',name='page',value='#{page}')
+input(id='loggedIn',type='hidden',name='loggedIn',value='#{loggedIn}')
+input(id='loginMessage',type='hidden',name='loginMessage',value='#{loginMessage}')
+input(id='signupMessage',type='hidden',name='signupMessage',value='#{signupMessage}')
+
+doctype html
+html(lang="en")
+	head
+		block title
+			title MixerFox
+		script(src='./js/jquery-2.2.3.min.js')
+		script(src='./js/bootstrap.min.js')
+		link(rel='stylesheet', href='css/bootstrap.min.css')
+		link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Open+Sans:400,700')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
+		link(rel='stylesheet', href='css/style.css')
+	body
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container-fluid
+				.navbar-header
+					a.navbar-brand(href='/') Mixer#[.highlight-text Fox]
+				ul.nav.navbar-nav.navbar-right
+					if page == 'Home'
+						li.nav-item.active
+							a.nav-link(href='/') Home
+					else
+						li.nav-item
+							a.nav-link(href='/') Home
+					if page == 'Upload'
+						li.nav-item.active
+							a.nav-link(href='/upload') Upload
+					else
+						li.nav-item
+							a.nav-link(href='/upload') Upload
+					if page == 'Create'
+						li.nav-item.active
+							a.nav-link(href='/create') Create Playlist
+					else
+						li.nav-item
+							a.nav-link(href='/create') Create Playlist
+					if loggedIn
+						li.nav-item
+							a.nav-link(href='/logout') Logout #{user}
+					else
+						if page == 'Login'
+							li.nav-item.active
+								a.nav-link(href='/login') Login / Sign Up
+						else
+							li.nav-item
+								a.nav-link(href='/login') Login / Sign Up
+					li.nav-item
+						form.navbar-form
+							input.form-control(type='text', placeholder='Search for songs')
+
+		block content

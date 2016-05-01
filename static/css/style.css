@@ -1,7 +1,8 @@
 body, html {
 	height: 100%;
 	width: 100%;
-	font: "Helvetica Neue", "Open Sans", sans-serif;
+	font: "Open Sans", Arial, sans-serif;
+	background-color: #f8f8f8;
 }
 
 .navbar-default {
@@ -9,12 +10,14 @@ body, html {
 }
 
 .navbar-brand {
-	font: 18pt "Helvetica Neue", sans-serif;
+	font: 18pt "Open Sans", sans-serif;
 	font-weight: 700;
 	text-transform: uppercase;
+	padding: 8px 8px 8px 8px;
 }
 
-.navbar-brand span {
+.highlight-text {
+	display: inline;
 	color: #dc4b1e;
 }
 
@@ -40,10 +43,6 @@ header {
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
-.header-content span {
-	color: #dc4b1e;
-}
-
 .header-content h1 {
 	margin-top: 50px;
 }
@@ -51,11 +50,6 @@ header {
 .mixerfox-logo {
 	margin: auto;
 	margin-top: 150px;
-}
-
-.main-content {
-	height: 1000px;
-	background-color: #aaa;
 }
 
 .main-searchbar {
@@ -72,6 +66,51 @@ header {
 
 .main-searchbar:focus {
 	outline: none;
+}
+
+.bg-primary {
+	min-height: 450px;
+	background-color: #dc4b1e;
+	color: white;
+}
+
+.upload-info-content {
+	margin-top: 150px;
+	text-align: center;
+}
+
+.main-content {
+	position: relative;
+	padding: 150px 15px 100px;
+	margin: auto;
+}
+
+.main-content-box {
+	background-color: white;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.login-form {
+	margin-bottom: 30px;
+}
+
+.btn-primary {
+	background-color: #dc4b1e;
+	border-radius: 5px;
+	border: none;
+}
+
+.btn-primary:focus {
+	background-color: #ec5b2e;
+}
+
+.btn-primary:hover {
+	background-color: #ec5b2e;
+}
+
+.playlist-img {
+	margin: auto;
+	margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {

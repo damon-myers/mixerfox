@@ -1,0 +1,40 @@
+extends ./layout.pug
+
+block title
+	title Create Playlist - MixerFox
+
+block content
+	.container.main-content
+		.row
+			.col-sm-12.main-content-box
+				h2.
+					Create a Playlist
+				hr
+				img.img-responsive.playlist-img(src='./images/200x200.png')
+				form
+					.row
+						.form-group.col-sm-4.col-sm-offset-2
+							label.
+								Playlist Name:
+							input.form-control(type='text', name='playlist-name', placeholder='Playlist Name', required='', autofocus='')
+						.form-group.col-sm-4
+							label. 
+								Playlist Art:
+							input(type='file', name='playlist-art')
+				hr
+				h2.
+					Songs:
+				form
+					.row
+						.form-group.col-sm-8.col-sm-offset-2
+							input.form-control.pull-right(type='text', name='song-search', placeholder='Search for song...', required='')
+					.row
+						.form-group.col-sm-2.col-sm-offset-8
+							button.btn-primary.btn-block(type='button')
+								i.fa.fa-plus(aria-hidden='true')
+					hr
+					.row
+						.form-group.col-sm-2.col-sm-offset-10
+							button.btn-primary.btn-lg.btn-block(type='submit').
+								Create Playlist
+			
