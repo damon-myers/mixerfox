@@ -5,7 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // load the user model
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
-var configDB = require('./database.js');
+var configDB = require('../config/database.js');
 var connection = mysql.createConnection(configDB.connection);
 
 module.exports = function(passport) {
@@ -44,18 +44,18 @@ module.exports = function(passport) {
 						// if there are no users with that username, create the new user
 						var newUserMySql = {
 							username: username,
-							// firstName: firstName,
-							// lastName: lastName,
+							firstName: req.body.firstName,
+							lastName: req.body.lastName,
 							password: bcrypt.hashSync(password, null, null)
 						};
 
-						var insertQuery = "INSERT INTO user (username, password) values (?, ?)";
+						var insertQuery = "INSERT INTO user (username, firstName, lastName, password) VALUES (?, ?, ?, ?)";
 
 						connection.query(insertQuery, 
-							[newUserMySql.username, newUserMySql.password], 
+							[newUserMySql.username, newUserMySql.firstName, newUserMySql.lastName, newUserMySql.password], 
 							function (err, results) {
 								if(err) {
-									console.log("MySQL Error when inserting new user.");
+									console.log("MySQL Error when inserting new user: " + newUserMySql.username);
 									console.log(err);
 									return done(null, false, req.flash('signupMessage', 'DB Error.'));
 								}

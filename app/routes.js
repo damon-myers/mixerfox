@@ -54,7 +54,7 @@ module.exports = function(app, passport) {
 		successRedirect: '/',
 		failureRedirect: '/login',
 		failureFlash: true
-	}))
+	}));
 
 };
 
