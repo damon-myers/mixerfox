@@ -61,12 +61,18 @@ function createTables() {
 							"PRIMARY KEY (`playlistId`) " +
 							") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
+	var createTablePlaylistSongs = "CREATE TABLE `playlist_songs` (" +
+							"`playlistId` int(11) NOT NULL, " +
+							"`songId` int(11) NOT NULL " +
+							") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+
 	// create tables
 	connection.query(createTableUser);
 	connection.query(createTableSong);
 	connection.query(createTablePlaylist);
 	connection.query(createTableArtist);
 	connection.query(createTableAlbum);
+	connection.query(createTablePlaylistSongs);
 
 	closeConnection();
 }
