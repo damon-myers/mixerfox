@@ -1,3 +1,14 @@
+var multer = require('multer');
+var upload = multer({
+	dest: __dirname + '/../music/',
+	limits: {
+		filesize: 10000000,
+		files: 12,
+
+	}
+});
+var fs = require('fs');
+
 module.exports = function(app, passport) {
 
 	// ==========================================
@@ -52,6 +63,7 @@ module.exports = function(app, passport) {
 	// ==========================================
 	//				POST
 	// ==========================================
+
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/',
 		failureRedirect: '/login',
@@ -72,6 +84,10 @@ module.exports = function(app, passport) {
 		failureRedirect: '/login',
 		failureFlash: true
 	}));
+
+	app.post('/upload', isLoggedIn, upload.array('song-file'), function(req, res) {
+		res.redirect('/upload');
+	});
 
 };
 

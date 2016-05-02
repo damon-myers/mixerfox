@@ -8,9 +8,9 @@ block content
 		.row
 			.col-sm-12.main-content-box
 				h2.
-					Upload a Song
+					Upload Songs
 				hr
-				form
+				form(action='/upload', enctype='multipart/form-data', method='POST')
 					.row
 						.form-group.col-sm-4
 							label.
@@ -23,7 +23,7 @@ block content
 						.form-group.col-sm-4
 							label. 
 								Song File:
-							input(type='file', name='playlist-art')
+							input(type='file', name='song-file')
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
 							button.btn-primary.btn-block(type='button')

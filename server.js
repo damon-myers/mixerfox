@@ -2,8 +2,10 @@
 // Business logic should be handled elsewhere
 
 
-// Require all of our packages to pass around
+// Require all of our packages
 var express = require('express');
+var multer = require('multer');
+var uploaddir = multer({dest: './music/'});
 var path = require('path');
 var favicon = require('serve-favicon');
 var mysql = require('mysql');
