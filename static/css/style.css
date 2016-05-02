@@ -108,6 +108,10 @@ header {
 	background-color: #ec5b2e;
 }
 
+.btn-primary:active:hover {
+	background-color: #fe6d40;
+}
+
 .playlist-img {
 	margin: auto;
 	margin-bottom: 20px;
