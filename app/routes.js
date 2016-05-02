@@ -1,13 +1,19 @@
 var multer = require('multer');
+var storage = multer.diskStorage({
+	destination: __dirname + '/../music'
+});
 var upload = multer({
-	dest: __dirname + '/../music/',
+	storage: storage,
 	limits: {
 		filesize: 10000000,
-		files: 12,
-
+		files: 12
 	}
 });
+
 var fs = require('fs');
+var mysql = require('mysql');
+var configDB = require('../config/database.js');
+var connection = mysql.createConnection(configDB.connection);
 
 module.exports = function(app, passport) {
 
@@ -35,6 +41,10 @@ module.exports = function(app, passport) {
 			'login-message': req.flash('loginMessage'), 
 			'signup-message': req.flash('signupMessage')
 		});
+	});
+
+	app.get('/signup', function(req, res) {
+		res.redirect('/login');
 	});
 
 	app.get('/create', isLoggedIn, function(req, res) {
@@ -86,6 +96,13 @@ module.exports = function(app, passport) {
 	}));
 
 	app.post('/upload', isLoggedIn, upload.array('song-file'), function(req, res) {
+		// insert an entry for each file into the database
+		for(var fileIdx in req.files) {
+			var file = req.files[fileIdx];
+			connection.query('INSERT INTO song (name, path, uploader) VALUES (?, ?, ?)',
+				[req.body.songName, file.path, req.session.passport.user]
+			);
+		}
 		res.redirect('/upload');
 	});
 
