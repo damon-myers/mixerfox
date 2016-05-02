@@ -10,7 +10,7 @@ block content
 				h2.
 					Upload Songs
 				hr
-				form(action='/upload', enctype='multipart/form-data', method='POST')
+				form#songs-form(action='/upload', enctype='multipart/form-data', method='POST')
 					.row
 						.form-group.col-sm-4
 							label.
@@ -26,10 +26,11 @@ block content
 							input(type='file', name='song-file')
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
-							button.btn-primary.btn-block(type='button')
+							button#add-song-btn.btn-primary.btn-block(type='button')
 								i.fa.fa-plus(aria-hidden='true')
 					hr
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
 							button.btn-primary.btn-lg.btn-block(type='submit').
 								Done
+	script(src='./js/upload_form.js')

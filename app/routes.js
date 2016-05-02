@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
 		for(var fileIdx in req.files) {
 			var file = req.files[fileIdx];
 			connection.query('INSERT INTO song (name, path, uploader) VALUES (?, ?, ?)',
-				[req.body.songName, file.path, req.session.passport.user]
+				[req.body.songName[fileIdx], file.path, req.session.passport.user]
 			);
 		}
 		res.redirect('/upload');
