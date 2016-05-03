@@ -4,6 +4,7 @@ block title
 	title Create Playlist - MixerFox
 
 block content
+	script(src='./js/create_playlist.js')
 	.container.main-content
 		.row
 			.col-sm-12.main-content-box
@@ -24,14 +25,11 @@ block content
 				hr
 				h2.
 					Songs:
-				form
+				form#playlist-form(action='/create', method='POST')
 					.row
 						.form-group.col-sm-8.col-sm-offset-2
-							input.form-control.pull-right(type='text', name='song-search', placeholder='Search for song...', required='')
-					.row
-						.form-group.col-sm-2.col-sm-offset-8
-							button.btn-primary.btn-block(type='button')
-								i.fa.fa-plus(aria-hidden='true')
+							input#autocomplete.form-control.pull-right(name='queryTerms', placeholder='Search for songs...', required='')
+					ul#songs-selected(style='text-align: center;')
 					hr
 					.row
 						.form-group.col-sm-2.col-sm-offset-10

@@ -110,8 +110,14 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	app.get('/autosearch', function(req, res) {
-
+	app.get('/autocomplete', function(req, res) {
+		connection.query('SELECT * FROM song WHERE name LIKE ?;',
+			['%' + req.query.queryTerms + '%'],
+			function(err, results) {
+				if(!err)
+					res.send(results);
+			}
+		);
 	});
 
 	// ==========================================
@@ -158,6 +164,11 @@ module.exports = function(app, passport) {
 			);
 		}
 		res.redirect('/upload');
+	});
+
+	app.post('/create', isLoggedIn, upload.single('playlist-art'), function(req, res) {
+		console.log(JSON.stringify(req.body));
+		res.render('create');
 	});
 };
 
