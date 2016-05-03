@@ -36,6 +36,7 @@ function createTables() {
 	var createTableSong = 	"CREATE TABLE `song` (" +
 	  							"`songId` int(11) NOT NULL AUTO_INCREMENT, " +
 	  							"`name` varchar(45) NOT NULL, " +
+	  							"`artist` varchar(45) NOT NULL, " +
 	  							"`path` varchar(255) NOT NULL, " +
 	  							"`uploader` varchar(45) NOT NULL, " +
 	  							"PRIMARY KEY (`songId`) " +
@@ -49,28 +50,21 @@ function createTables() {
 	  							"PRIMARY KEY (`playlistId`) " +
 								") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-	var createTableArtist = "CREATE TABLE `artist` (" +
-							"`username` varchar(45) NOT NULL," +
-							"`bio` varchar(255) DEFAULT NULL," +
-							"PRIMARY KEY (`username`)" +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-	var createTableAlbum = "CREATE TABLE `album` (" +
-							"`playlistId` int(11) NOT NULL, " +
-							"`releaseDate` date DEFAULT NULL, " +
-							"PRIMARY KEY (`playlistId`) " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	var createTableAlbum	= "CREATE TABLE `album` (" +
+								"`playlistId` int(11) NOT NULL, " +
+								"`releaseDate` date DEFAULT NULL, " +
+								"PRIMARY KEY (`playlistId`) " +
+								") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 	var createTablePlaylistSongs = "CREATE TABLE `playlist_songs` (" +
-							"`playlistId` int(11) NOT NULL, " +
-							"`songId` int(11) NOT NULL " +
-							") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+								"`playlistId` int(11) NOT NULL, " +
+								"`songId` int(11) NOT NULL " +
+								") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
 
 	// create tables
 	connection.query(createTableUser);
 	connection.query(createTableSong);
 	connection.query(createTablePlaylist);
-	connection.query(createTableArtist);
 	connection.query(createTableAlbum);
 	connection.query(createTablePlaylistSongs);
 

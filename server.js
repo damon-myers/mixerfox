@@ -46,6 +46,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// middleware to expose session variables to templates
+app.use(function (req, res, next) {
+	res.locals.session = req.session;
+	next();
+});
+
 // routing handled in routes.js
 // pass the app and passport object for auth
 require('./app/routes.js')(app, passport);

@@ -42,7 +42,9 @@ html(lang="en")
 							a.nav-link(href='/create') Create Playlist
 					if loggedIn
 						li.nav-item
-							a.nav-link(href='/logout') Logout #{user}
+							a.nav-link(href='/account') My Mixes
+						li.nav-item
+							a.nav-link(href='/logout') Logout
 					else
 						if page == 'Login'
 							li.nav-item.active

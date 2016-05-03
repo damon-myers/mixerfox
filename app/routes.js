@@ -21,7 +21,6 @@ module.exports = function(app, passport) {
 	//				GET
 	// ==========================================
 
-	// home page route
 	app.get('/', function(req, res) {
 		if(req.isAuthenticated())
 			res.render('index', {
@@ -61,14 +60,27 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	app.get('/search', function(req, res) {
+		res.render('results', {
+			'page': 'Results',
+			'loggedIn': req.isAuthenticated()
+		});
+	});
+
 	app.get('/play', function(req, res) {
 		res.render('player');
+	});
+
+	app.get('/account', isLoggedIn, function(req, res) {
+		res.render('account', {
+			'loggedIn': 'true'
+		});
 	});
 
 	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
-	})
+	});
 
 	// ==========================================
 	//				POST
@@ -96,11 +108,21 @@ module.exports = function(app, passport) {
 	}));
 
 	app.post('/upload', isLoggedIn, upload.array('song-file'), function(req, res) {
-		// insert an entry for each file into the database
-		for(var fileIdx in req.files) {
-			var file = req.files[fileIdx];
-			connection.query('INSERT INTO song (name, path, uploader) VALUES (?, ?, ?)',
-				[req.body.songName[fileIdx], file.path, req.session.passport.user]
+
+		if(req.files.length > 1) {
+			// insert an entry for each file into the database
+			for(var fileIdx in req.files) {
+				var file = req.files[fileIdx];
+				connection.query('INSERT INTO song (name, artist, path, uploader) VALUES (?, ?, ?, ?)',
+					[req.body.songName[fileIdx], req.body.artistName[fileIdx] || 'Unknown Artist',
+					 file.path, req.session.passport.user]
+				);
+			}
+		}
+		else {
+			connection.query('INSERT INTO song (name, artist, path, uploader) VALUES (?, ?, ?, ?)',
+				[req.body.songName, req.body.artistName || 'Unknown Artist',
+				 req.files[0].path, req.session.passport.user]
 			);
 		}
 		res.redirect('/upload');

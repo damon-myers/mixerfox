@@ -10,7 +10,7 @@ $(document).ready(function() {
 				"</div>" +
 				"<div class='form-group col-sm-4'>" +
 					"<label> Artist: </label>" +
-					"<input class='form-control' type='text' name='artistName' placeholder='Artist Name' required autofocus>" +
+					"<input class='form-control' type='text' name='artistName' placeholder='Unknown Artist' required autofocus>" +
 				"</div>" +
 				"<div class='form-group col-sm-4'>" +
 					"<label> Song File: </label>" +
