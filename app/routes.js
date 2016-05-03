@@ -1,7 +1,17 @@
+var path = require('path');
 var multer = require('multer');
+var mime = require('mime-types');
+var crypto = require('crypto');
+
 // handle music uploads
 var storage = multer.diskStorage({
-	destination: __dirname + '/../music'
+	destination: __dirname + '/../music/',
+	filename: function (req, file, cb) {
+		crypto.pseudoRandomBytes(16, function (err, raw) {
+			if (err) return cb(err)
+			cb(null, raw.toString('hex') + '.' + mime.extension(file.mimetype))
+		});
+	}
 });
 var upload = multer({
 	storage: storage,
@@ -13,7 +23,13 @@ var upload = multer({
 
 // handle playlist art uploads
 var storageArt = multer.diskStorage({
-	destination: __dirname +'/../static/images/art'
+	destination: __dirname + '/../art/',
+	filename: function (req, file, cb) {
+		crypto.pseudoRandomBytes(16, function (err, raw) {
+			if (err) return cb(err)
+			cb(null, raw.toString('hex') + '.' + mime.extension(file.mimetype))
+		});
+	}
 });
 var uploadArt = multer({
 	storage: storageArt
@@ -184,8 +200,11 @@ module.exports = function(app, passport) {
 						connection.query('INSERT INTO playlist_songs (playlistId, songId) VALUES (?, ?);',
 							[result.insertId, req.body.songValue[songIdx]],
 							function(err, results) {
-							res.render('create');
+							res.render('create', {
+								'page': 'Create',
+								'isLoggedIn': req.isAuthenticated()
 							});
+						});
 					}
 				}
 			});
