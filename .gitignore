@@ -39,7 +39,7 @@ config/database.js
 config/secret.js
 
 # Directory for all uploaded music files
-./music/
+music/
 
 # Directory for all playlist art
-./art/
+art/

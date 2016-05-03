@@ -2,3 +2,56 @@ extends ./layout.pug
 
 block title
 	title #{session.passport.user} - MixerFox
+
+block content
+	.container.main-content
+		.row
+			.col-sm-12.main-content-box
+				h1 #{session.passport.user}'s Uploads
+				hr
+				h2 Uploaded Songs:
+				if songResults.length > 0
+					.container
+						.row
+							.col-md-3.col-md-offset-3
+								h4 Song Name:
+							.col-md-3
+								h4 Artist:
+					each val, index in songResults
+						.row.result
+							.col-sm-3.col-sm-offset-4
+								p= songResults[index].name
+							.col-sm-3
+								p= songResults[index].artist
+							.col-sm-2
+								a(href='/play?song=' + songResults[index].songId)
+									i.icon-primary.fa.fa-play(aria-hidden='true')
+				else
+					p.
+						Woops! Looks like you haven't #[a(href='/upload') uploaded] anything!
+				hr
+				h2 Created Playlists:
+				if playlistResults.length > 0
+					.container
+						.row
+							.col-md-3
+								h4 Playlist Art:
+							.col-md-3
+								h4 Playlist Name:
+							.col-md-3
+								h4 Created By:
+							.col-md-3
+					each val, index in playlistResults
+						.row.result
+							.col-sm-3.col-sm-offset-1
+								img.img-responsive(src=playlistResults[index].artPath)
+							.col-sm-3
+								p= playlistResults[index].name
+							.col-sm-3
+								p= playlistResults[index].creator
+							.col-sm-2
+								a(href='/play?list=' + playlistResults[index].playlistId)
+									i.icon-primary.fa.fa-play(aria-hidden='true')
+				else
+					p.
+						Looks like you haven't #[a(href='/create') created] any playlists yet!

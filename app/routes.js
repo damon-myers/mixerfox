@@ -90,9 +90,26 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/account', isLoggedIn, function(req, res) {
-		res.render('account', {
-			'loggedIn': 'true'
-		});
+		var songResults = {};
+		var playlistResults = {};
+
+		connection.query('SELECT * FROM song WHERE uploader=?;',
+			[req.session.passport.user],
+			function(err, results) {
+				songResults = results;
+
+				connection.query('SELECT * FROM playlist WHERE creator=?;',
+					[req.session.passport.user],
+					function(err, result) {
+						res.render('account', {
+							'loggedIn': req.isAuthenticated(),
+							'songResults': songResults,
+							'playlistResults': result || {}
+						});
+					}
+				);
+			}
+		);
 	});
 
 	app.get('/logout', function(req, res) {
@@ -200,14 +217,11 @@ module.exports = function(app, passport) {
 						connection.query('INSERT INTO playlist_songs (playlistId, songId) VALUES (?, ?);',
 							[result.insertId, req.body.songValue[songIdx]],
 							function(err, results) {
-							res.render('create', {
-								'page': 'Create',
-								'isLoggedIn': req.isAuthenticated()
-							});
 						});
 					}
 				}
 			});
+		res.redirect('/account');
 	});
 };
 
