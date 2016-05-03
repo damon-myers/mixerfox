@@ -24,7 +24,7 @@ block content
 							.col-sm-3
 								p= songResults[index].artist
 							.col-sm-2
-								a(href='/play?song=' + songResults[index].songId)
+								a(href='/player?song=' + songResults[index].songId)
 									i.icon-primary.fa.fa-play(aria-hidden='true')
 				else
 					p.
@@ -50,7 +50,7 @@ block content
 							.col-sm-3
 								p= playlistResults[index].creator
 							.col-sm-2
-								a(href='/play?list=' + playlistResults[index].playlistId)
+								a(href='/player?list=' + playlistResults[index].playlistId)
 									i.icon-primary.fa.fa-play(aria-hidden='true')
 				else
 					p.
