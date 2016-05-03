@@ -2,6 +2,10 @@ var path = require('path');
 var multer = require('multer');
 var mime = require('mime-types');
 var crypto = require('crypto');
+var fs = require('fs');
+var mysql = require('mysql');
+var configDB = require('../config/database.js');
+var connection = mysql.createConnection(configDB.connection);
 
 // handle music uploads
 var storage = multer.diskStorage({
@@ -9,7 +13,7 @@ var storage = multer.diskStorage({
 	filename: function (req, file, cb) {
 		crypto.pseudoRandomBytes(16, function (err, raw) {
 			if (err) return cb(err)
-			cb(null, raw.toString('hex') + '.' + mime.extension(file.mimetype))
+			cb(null, raw.toString('hex') + '.mp3')
 		});
 	}
 });
@@ -34,11 +38,6 @@ var storageArt = multer.diskStorage({
 var uploadArt = multer({
 	storage: storageArt
 });
-
-var fs = require('fs');
-var mysql = require('mysql');
-var configDB = require('../config/database.js');
-var connection = mysql.createConnection(configDB.connection);
 
 module.exports = function(app, passport) {
 
@@ -83,10 +82,6 @@ module.exports = function(app, passport) {
 			'page':'Upload',
 			'loggedIn': true
 		});
-	});
-
-	app.get('/play', function(req, res) {
-		res.render('player');
 	});
 
 	app.get('/account', isLoggedIn, function(req, res) {
@@ -160,6 +155,31 @@ module.exports = function(app, passport) {
 					res.send(results);
 			}
 		);
+	});
+
+	app.get('/player', function(req, res) {
+		res.render('player');
+	});
+
+	// main route for the music player
+	app.get('/play', function(req, res) {
+		// determine whether we are playing a song or playlist
+		if (req.query.song) {
+			connection.query('SELECT * FROM song WHERE songId=?',
+				[req.query.song],
+				function(err, results) {
+					if(!err) {
+						var filePath = results[0].path;
+						res.set({'Conent-Type': 'audio/mpeg'});
+						var readStream = fs.createReadStream(filePath);
+						readStream.pipe(res);
+					}
+				}
+			);
+		}
+		else if (req.query.list) {
+
+		}
 	});
 
 	// ==========================================
