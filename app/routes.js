@@ -83,9 +83,7 @@ module.exports = function(app, passport) {
 		connection.query('SELECT * FROM song WHERE name LIKE ?;',
 			['%' + req.query.queryTerms + '%'],
 			function(err, results) {
-				console.log(JSON.stringify(results));
 				songResults = results;
-				console.log(JSON.stringify(songResults));
 
 				connection.query('SELECT * FROM playlist WHERE name LIKE ?;',
 					['%' + req.query.queryTerms + '%'],
@@ -110,6 +108,10 @@ module.exports = function(app, passport) {
 				);
 			}
 		);
+	});
+
+	app.get('/autosearch', function(req, res) {
+
 	});
 
 	// ==========================================
