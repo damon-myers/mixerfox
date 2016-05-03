@@ -1,6 +1,17 @@
+var path = require('path');
 var multer = require('multer');
+var mime = require('mime-types');
+var crypto = require('crypto');
+
+// handle music uploads
 var storage = multer.diskStorage({
-	destination: __dirname + '/../music'
+	destination: __dirname + '/../music/',
+	filename: function (req, file, cb) {
+		crypto.pseudoRandomBytes(16, function (err, raw) {
+			if (err) return cb(err)
+			cb(null, raw.toString('hex') + '.' + mime.extension(file.mimetype))
+		});
+	}
 });
 var upload = multer({
 	storage: storage,
@@ -8,6 +19,20 @@ var upload = multer({
 		filesize: 10000000,
 		files: 12
 	}
+});
+
+// handle playlist art uploads
+var storageArt = multer.diskStorage({
+	destination: __dirname + '/../art/',
+	filename: function (req, file, cb) {
+		crypto.pseudoRandomBytes(16, function (err, raw) {
+			if (err) return cb(err)
+			cb(null, raw.toString('hex') + '.' + mime.extension(file.mimetype))
+		});
+	}
+});
+var uploadArt = multer({
+	storage: storageArt
 });
 
 var fs = require('fs');
@@ -65,9 +90,26 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/account', isLoggedIn, function(req, res) {
-		res.render('account', {
-			'loggedIn': 'true'
-		});
+		var songResults = {};
+		var playlistResults = {};
+
+		connection.query('SELECT * FROM song WHERE uploader=?;',
+			[req.session.passport.user],
+			function(err, results) {
+				songResults = results;
+
+				connection.query('SELECT * FROM playlist WHERE creator=?;',
+					[req.session.passport.user],
+					function(err, result) {
+						res.render('account', {
+							'loggedIn': req.isAuthenticated(),
+							'songResults': songResults,
+							'playlistResults': result || {}
+						});
+					}
+				);
+			}
+		);
 	});
 
 	app.get('/logout', function(req, res) {
@@ -110,8 +152,14 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	app.get('/autosearch', function(req, res) {
-
+	app.get('/autocomplete', function(req, res) {
+		connection.query('SELECT * FROM song WHERE name LIKE ?;',
+			['%' + req.query.queryTerms + '%'],
+			function(err, results) {
+				if(!err)
+					res.send(results);
+			}
+		);
 	});
 
 	// ==========================================
@@ -158,6 +206,22 @@ module.exports = function(app, passport) {
 			);
 		}
 		res.redirect('/upload');
+	});
+
+	app.post('/create', isLoggedIn, uploadArt.single('playlistArt'), function(req, res) {
+		connection.query('INSERT INTO playlist (name, artPath, creator) VALUES (?, ?, ?);',
+			[req.body.playlistName, req.file.path, req.session.passport.user],
+			function(err, result) {
+				if(!err) {
+					for(var songIdx in req.body.songValue) {
+						connection.query('INSERT INTO playlist_songs (playlistId, songId) VALUES (?, ?);',
+							[result.insertId, req.body.songValue[songIdx]],
+							function(err, results) {
+						});
+					}
+				}
+			});
+		res.redirect('/account');
 	});
 };
 

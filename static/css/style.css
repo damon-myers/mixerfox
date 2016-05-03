@@ -75,8 +75,15 @@ header {
 }
 
 .upload-info-content {
-	margin-top: 150px;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+	margin-top: 250px;
 	text-align: center;
+	color: #ddd;
+}
+
+.upload-info-content a {
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+	color: white;
 }
 
 .main-content {

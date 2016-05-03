@@ -4,6 +4,7 @@ block title
 	title Create Playlist - MixerFox
 
 block content
+	script(src='./js/create_playlist.js')
 	.container.main-content
 		.row
 			.col-sm-12.main-content-box
@@ -11,30 +12,25 @@ block content
 					Create a Playlist
 				hr
 				img.img-responsive.playlist-img(src='./images/200x200.png')
-				form
+				form#playlist-form(action='/create', enctype='multipart/form-data', method='POST')
 					.row
 						.form-group.col-sm-4.col-sm-offset-2
 							label.
 								Playlist Name:
-							input.form-control(type='text', name='playlist-name', placeholder='Playlist Name', required='', autofocus='')
+							input.form-control(type='text', name='playlistName', placeholder='Playlist Name', required='', autofocus='')
 						.form-group.col-sm-4
 							label. 
 								Playlist Art:
-							input(type='file', name='playlist-art')
-				hr
-				h2.
-					Songs:
-				form
+							input(type='file', name='playlistArt')
+					hr
+					h2.
+						Songs:
 					.row
 						.form-group.col-sm-8.col-sm-offset-2
-							input.form-control.pull-right(type='text', name='song-search', placeholder='Search for song...', required='')
-					.row
-						.form-group.col-sm-2.col-sm-offset-8
-							button.btn-primary.btn-block(type='button')
-								i.fa.fa-plus(aria-hidden='true')
+							input#autocomplete.form-control.pull-right(name='queryTerms', placeholder='Search for songs...', required='')
+					ul#songs-selected(style='text-align: center;')
 					hr
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
 							button.btn-primary.btn-lg.btn-block(type='submit').
 								Create Playlist
-			
