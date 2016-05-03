@@ -20,10 +20,6 @@ var passportSecret = require('./config/secret.js');
 var app = express();
 var port = process.env.PORT || 3000;
 
-// configure and connect to our database
-var configDB = require('./config/database.js');
-var connectionDB = mysql.createConnection(configDB.connection);
-
 // pass passport object for configuration
 require('./app/passport.js')(passport);
 

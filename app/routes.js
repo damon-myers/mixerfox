@@ -60,13 +60,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get('/search', function(req, res) {
-		res.render('results', {
-			'page': 'Results',
-			'loggedIn': req.isAuthenticated()
-		});
-	});
-
 	app.get('/play', function(req, res) {
 		res.render('player');
 	});
@@ -80,6 +73,43 @@ module.exports = function(app, passport) {
 	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
+	});
+
+	app.get('/search', function(req, res) {
+		var songResults = {};
+		var playlistResults = {};
+		var artistResults = {};
+
+		connection.query('SELECT * FROM song WHERE name LIKE ?;',
+			['%' + req.query.queryTerms + '%'],
+			function(err, results) {
+				console.log(JSON.stringify(results));
+				songResults = results;
+				console.log(JSON.stringify(songResults));
+
+				connection.query('SELECT * FROM playlist WHERE name LIKE ?;',
+					['%' + req.query.queryTerms + '%'],
+					function(err, results) {
+						playlistResults = results;
+
+						connection.query('SELECT * FROM song WHERE artist LIKE ?;',
+							['%' + req.query.queryTerms + '%'],
+							function(err, results) {
+								artistResults = results;
+
+								res.render('results', {
+									'page': 'Results',
+									'songResults': songResults,
+									'playlistResults': playlistResults,
+									'artistResults': artistResults,
+									'loggedIn': req.isAuthenticated()
+								});
+							}
+						);
+					}
+				);
+			}
+		);
 	});
 
 	// ==========================================
@@ -127,7 +157,6 @@ module.exports = function(app, passport) {
 		}
 		res.redirect('/upload');
 	});
-
 };
 
 // middleware function to check if a user is logged in

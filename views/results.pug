@@ -1,0 +1,23 @@
+extends ./layout.pug
+
+block title
+	Title Results - MixerFox
+
+block content
+	.container.main-content
+		.row
+			.col-sm-12.main-content-box
+				h1 Search Results
+				hr
+				h2 Related Songs:
+					if songResults.length > 0
+						each val, index in songResults
+							p= songResults[index].name
+					else
+						p.
+							Sorry! No songs matched that query. 
+							#[a(href='/upload') Upload]	it instead?
+				hr
+				h2 Related Playlists:
+				hr
+				h2 Related Artists:

@@ -1,10 +1,5 @@
 // layout template for consistent page features
 
-input(id='page',type='hidden',name='page',value='#{page}')
-input(id='loggedIn',type='hidden',name='loggedIn',value='#{loggedIn}')
-input(id='loginMessage',type='hidden',name='loginMessage',value='#{loginMessage}')
-input(id='signupMessage',type='hidden',name='signupMessage',value='#{signupMessage}')
-
 doctype html
 html(lang="en")
 	head
@@ -53,7 +48,7 @@ html(lang="en")
 							li.nav-item
 								a.nav-link(href='/login') Login / Sign Up
 					li.nav-item
-						form.navbar-form
-							input.form-control(type='text', placeholder='Search for songs')
+						form.navbar-form(action='/search')
+							input.form-control(type='text', name='queryTerms', placeholder='Search for songs')
 
 		block content

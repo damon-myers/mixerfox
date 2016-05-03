@@ -4,6 +4,8 @@ block title
 	title Login - MixerFox
 
 block content
+	input(id='loginMessage',type='hidden',name='loginMessage',value='#{loginMessage}')
+	input(id='signupMessage',type='hidden',name='signupMessage',value='#{signupMessage}')
 	.container.main-content
 		if loginMessage
 			.alert.alert-danger
