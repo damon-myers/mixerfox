@@ -1,10 +1,26 @@
+var multer = require('multer');
+var storage = multer.diskStorage({
+	destination: __dirname + '/../music'
+});
+var upload = multer({
+	storage: storage,
+	limits: {
+		filesize: 10000000,
+		files: 12
+	}
+});
+
+var fs = require('fs');
+var mysql = require('mysql');
+var configDB = require('../config/database.js');
+var connection = mysql.createConnection(configDB.connection);
+
 module.exports = function(app, passport) {
 
 	// ==========================================
 	//				GET
 	// ==========================================
 
-	// home page route
 	app.get('/', function(req, res) {
 		if(req.isAuthenticated())
 			res.render('index', {
@@ -26,6 +42,10 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	app.get('/signup', function(req, res) {
+		res.redirect('/login');
+	});
+
 	app.get('/create', isLoggedIn, function(req, res) {
 		res.render('create', {
 			'page':'Create',
@@ -44,14 +64,60 @@ module.exports = function(app, passport) {
 		res.render('player');
 	});
 
+	app.get('/account', isLoggedIn, function(req, res) {
+		res.render('account', {
+			'loggedIn': 'true'
+		});
+	});
+
 	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
-	})
+	});
+
+	app.get('/search', function(req, res) {
+		var songResults = {};
+		var playlistResults = {};
+		var artistResults = {};
+
+		connection.query('SELECT * FROM song WHERE name LIKE ?;',
+			['%' + req.query.queryTerms + '%'],
+			function(err, results) {
+				songResults = results;
+
+				connection.query('SELECT * FROM playlist WHERE name LIKE ?;',
+					['%' + req.query.queryTerms + '%'],
+					function(err, results) {
+						playlistResults = results;
+
+						connection.query('SELECT * FROM song WHERE artist LIKE ?;',
+							['%' + req.query.queryTerms + '%'],
+							function(err, results) {
+								artistResults = results;
+
+								res.render('results', {
+									'page': 'Results',
+									'songResults': songResults,
+									'playlistResults': playlistResults,
+									'artistResults': artistResults,
+									'loggedIn': req.isAuthenticated()
+								});
+							}
+						);
+					}
+				);
+			}
+		);
+	});
+
+	app.get('/autosearch', function(req, res) {
+
+	});
 
 	// ==========================================
 	//				POST
 	// ==========================================
+
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/',
 		failureRedirect: '/login',
@@ -73,6 +139,26 @@ module.exports = function(app, passport) {
 		failureFlash: true
 	}));
 
+	app.post('/upload', isLoggedIn, upload.array('song-file'), function(req, res) {
+
+		if(req.files.length > 1) {
+			// insert an entry for each file into the database
+			for(var fileIdx in req.files) {
+				var file = req.files[fileIdx];
+				connection.query('INSERT INTO song (name, artist, path, uploader) VALUES (?, ?, ?, ?)',
+					[req.body.songName[fileIdx], req.body.artistName[fileIdx] || 'Unknown Artist',
+					 file.path, req.session.passport.user]
+				);
+			}
+		}
+		else {
+			connection.query('INSERT INTO song (name, artist, path, uploader) VALUES (?, ?, ?, ?)',
+				[req.body.songName, req.body.artistName || 'Unknown Artist',
+				 req.files[0].path, req.session.passport.user]
+			);
+		}
+		res.redirect('/upload');
+	});
 };
 
 // middleware function to check if a user is logged in

@@ -1,0 +1,91 @@
+extends ./layout.pug
+
+block title
+	Title Results - MixerFox
+
+block content
+	.container.main-content
+		.row
+			.col-sm-12.main-content-box
+				h1 Search Results
+				hr
+				h2 Related Songs:
+				if songResults.length > 0
+					.container
+						.row
+							.col-md-3
+								h4 Song Name:
+							.col-md-3
+								h4 Artist:
+							.col-md-3
+								h4 Uploaded By:
+							.col-md-3
+					each val, index in songResults
+						.row.result
+							.col-sm-3.col-sm-offset-1
+								p= songResults[index].name
+							.col-sm-3
+								p= songResults[index].artist
+							.col-sm-3
+								p= songResults[index].uploader
+							.col-sm-2
+								a(href='/play?song=' + songResults[index].songId)
+									i.icon-primary.fa.fa-play(aria-hidden='true')
+				else
+					p.
+						Sorry! No songs matched that query. 
+						#[a(href='/upload') Upload]	it instead?
+				hr
+				h2 Related Playlists:
+				if playlistResults.length > 0
+					.container
+						.row
+							.col-md-3
+								h4 Playlist Art:
+							.col-md-3
+								h4 Playlist Name:
+							.col-md-3
+								h4 Created By:
+							.col-md-3
+					each val, index in songResults
+						.row.result
+							.col-sm-3.col-sm-offset-1
+								img(src=playlistResults[index].artPath + '.png')
+							.col-sm-3
+								p= playlistResults[index].name
+							.col-sm-3
+								p= playlistResults[index].creator
+							.col-sm-2
+								a(href='/play?list=' + playlistResults[index].playlistId)
+									i.icon-primary.fa.fa-play(aria-hidden='true')
+				else
+					p.
+						Sorry! No playlists matched that query. 
+						#[a(href='/upload') Upload]	it instead?
+				hr
+				h2 Related Artists:
+				if artistResults.length > 0
+					.container
+						.row
+							.col-md-3
+								h4 Artist Name:
+							.col-md-3
+								h4 Song Name:
+							.col-md-3
+								h4 Uploaded By:
+							.col-md-3
+					each val, index in artistResults
+						.row.result
+							.col-sm-3.col-sm-offset-1
+								p= artistResults[index].artist
+							.col-sm-3
+								p= artistResults[index].name
+							.col-sm-3
+								p= artistResults[index].uploader
+							.col-sm-2
+								a(href='/play?song=' + artistResults[index].songId)
+									i.icon-primary.fa.fa-play(aria-hidden='true')
+				else
+					p.
+						Sorry! No artists matched that query. 
+						#[a(href='/upload') Upload]	their music instead?

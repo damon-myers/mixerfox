@@ -8,28 +8,29 @@ block content
 		.row
 			.col-sm-12.main-content-box
 				h2.
-					Upload a Song
+					Upload Songs
 				hr
-				form
+				form#songs-form(action='/upload', enctype='multipart/form-data', method='POST')
 					.row
 						.form-group.col-sm-4
 							label.
 								Song Name:
-							input.form-control(type='text', name='playlist-name', placeholder='Song Name', required='', autofocus='')
+							input.form-control(type='text', name='songName', placeholder='Song Name', required='', autofocus='')
 						.form-group.col-sm-4
 							label.
 								Artist:
-							input.form-control(type='text', name='artist-name', placeholder='Artist Name')
+							input.form-control(type='text', name='artistName', placeholder='Unknown Artist')
 						.form-group.col-sm-4
 							label. 
 								Song File:
-							input(type='file', name='playlist-art')
+							input(type='file', name='song-file')
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
-							button.btn-primary.btn-block(type='button')
+							button#add-song-btn.btn-primary.btn-block(type='button')
 								i.fa.fa-plus(aria-hidden='true')
 					hr
 					.row
 						.form-group.col-sm-2.col-sm-offset-10
 							button.btn-primary.btn-lg.btn-block(type='submit').
 								Done
+	script(src='./js/upload_form.js')

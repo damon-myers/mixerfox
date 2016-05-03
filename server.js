@@ -2,8 +2,10 @@
 // Business logic should be handled elsewhere
 
 
-// Require all of our packages to pass around
+// Require all of our packages
 var express = require('express');
+var multer = require('multer');
+var uploaddir = multer({dest: './music/'});
 var path = require('path');
 var favicon = require('serve-favicon');
 var mysql = require('mysql');
@@ -17,10 +19,6 @@ var passportSecret = require('./config/secret.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
-
-// configure and connect to our database
-var configDB = require('./config/database.js');
-var connectionDB = mysql.createConnection(configDB.connection);
 
 // pass passport object for configuration
 require('./app/passport.js')(passport);
@@ -43,6 +41,12 @@ app.use(session ({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+// middleware to expose session variables to templates
+app.use(function (req, res, next) {
+	res.locals.session = req.session;
+	next();
+});
 
 // routing handled in routes.js
 // pass the app and passport object for auth

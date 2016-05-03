@@ -10,8 +10,8 @@ block content
 				img.mixerfox-logo.img-responsive(width='250', src='images/mixerfox_logo.png')
 				h1.
 					Mixer#[.highlight-text Fox] has the music you need.
-				form
-					input.main-searchbar(type='text', placeholder='Search by artist, playlist, or song name')
+				form(action='/search')
+					input.main-searchbar(type='text', name='queryTerms' placeholder='Search by artist, playlist, or song name')
 
 	.bg-primary
 		.container

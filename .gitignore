@@ -37,3 +37,6 @@ config/database.js
 
 # Secret config file that contains the session secret for passport
 config/secret.js
+
+# Directory for all uploaded music files
+music/*
