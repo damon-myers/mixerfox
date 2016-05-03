@@ -10,14 +10,29 @@ block content
 				h1 Search Results
 				hr
 				h2 Related Songs:
-					if songResults.length > 0
-						each val, index in songResults
+				if songResults.length > 0
+					each val, index in songResults
+						.result.col-sm-10
 							p= songResults[index].name
-					else
-						p.
-							Sorry! No songs matched that query. 
-							#[a(href='/upload') Upload]	it instead?
+				else
+					p.
+						Sorry! No songs matched that query. 
+						#[a(href='/upload') Upload]	it instead?
 				hr
 				h2 Related Playlists:
+				if playlistResults.length > 0
+					each val, index in playlistResults
+						p= songResults[index].name
+				else
+					p.
+						Sorry! No playlists matched that query. 
+						#[a(href='/upload') Upload]	it instead?
 				hr
 				h2 Related Artists:
+				if artistResults.length > 0
+					each val, index in artistResults
+						p= artistResults[index].artist
+				else
+					p.
+						Sorry! No artists matched that query. 
+						#[a(href='/upload') Upload]	it instead?
