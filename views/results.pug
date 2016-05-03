@@ -47,10 +47,10 @@ block content
 							.col-md-3
 								h4 Created By:
 							.col-md-3
-					each val, index in songResults
+					each val, index in playlistResults
 						.row.result
 							.col-sm-3.col-sm-offset-1
-								img(src=playlistResults[index].artPath + '.png')
+								img.img-responsive(src=playlistResults[index].artPath)
 							.col-sm-3
 								p= playlistResults[index].name
 							.col-sm-3

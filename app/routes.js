@@ -1,4 +1,5 @@
 var multer = require('multer');
+// handle music uploads
 var storage = multer.diskStorage({
 	destination: __dirname + '/../music'
 });
@@ -8,6 +9,14 @@ var upload = multer({
 		filesize: 10000000,
 		files: 12
 	}
+});
+
+// handle playlist art uploads
+var storageArt = multer.diskStorage({
+	destination: __dirname +'/../static/images/art'
+});
+var uploadArt = multer({
+	storage: storageArt
 });
 
 var fs = require('fs');
@@ -166,9 +175,20 @@ module.exports = function(app, passport) {
 		res.redirect('/upload');
 	});
 
-	app.post('/create', isLoggedIn, upload.single('playlist-art'), function(req, res) {
-		console.log(JSON.stringify(req.body));
-		res.render('create');
+	app.post('/create', isLoggedIn, uploadArt.single('playlistArt'), function(req, res) {
+		connection.query('INSERT INTO playlist (name, artPath, creator) VALUES (?, ?, ?);',
+			[req.body.playlistName, req.file.path, req.session.passport.user],
+			function(err, result) {
+				if(!err) {
+					for(var songIdx in req.body.songValue) {
+						connection.query('INSERT INTO playlist_songs (playlistId, songId) VALUES (?, ?);',
+							[result.insertId, req.body.songValue[songIdx]],
+							function(err, results) {
+							res.render('create');
+							});
+					}
+				}
+			});
 	});
 };
 
